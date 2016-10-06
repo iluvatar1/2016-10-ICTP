@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>report-hpc-school</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="report-hpc-school"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2016-10-04T17:14+0200"/>
+<meta name="author" content="woquendo"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012-2013  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">report-hpc-school</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1  Hardware performance through matrix computations</a>
+<ul>
+<li><a href="#sec-1-1">1.1 Matrix multiplications</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1 Implement the missing parts</a></li>
+<li><a href="#sec-1-1-2">1.1.2 Compiling with different flags</a></li>
+<li><a href="#sec-1-1-3">1.1.3 Compile adding -mavx</a></li>
+<li><a href="#sec-1-1-4">1.1.4 Answer to the question</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2 Matrix transposition</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2  Hands-on session</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Symbols</a></li>
+<li><a href="#sec-2-2">2.2 lang2lang</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1 01-f-from-f</a></li>
+<li><a href="#sec-2-2-2">2.2.2 02-c-from-c</a></li>
+<li><a href="#sec-2-2-3">2.2.3 03-c-from-f77</a></li>
+<li><a href="#sec-2-2-4">2.2.4 04-f77-from-c</a></li>
+<li><a href="#sec-2-2-5">2.2.5 05-cpp-from-cpp</a></li>
+<li><a href="#sec-2-2-6">2.2.6 06-c-from-cpp</a></li>
+<li><a href="#sec-2-2-7">2.2.7 07-c-from-f03</a></li>
+<li><a href="#sec-2-2-8">2.2.8 08-f03-from-c</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3 ext libs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> <span class="timestamp-wrapper"> <span class="timestamp">2016-10-03 Mon</span></span> Hardware performance through matrix computations</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Matrix multiplications</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Implement the missing parts</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+<ul>
+<li id="sec-1-1-1-1">Dynamic memory allocation<br/>
+<ul>
+<li>I am going to use malloc.
+</li>
+<li>I needed to compile with the <code>-lblas</code> at the end.
+</li>
+<li>The line was like 
+
+
+
+<pre class="example">A = (double *) malloc(SIZE*SIZE*sizeof(double)); 
+if (NULL == A) printf("ERROR getting memory for matrix A \n");
+</pre>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-1-2">Initialization with random values<br/>
+<ul>
+<li>Using the drand48 function
+</li>
+<li>I wrote three helper functions allowing me to 
+     compute the indexes i and j from a given linear 
+     index and viceversa.
+</li>
+<li>I am using srand48 to ensure reproducibility.
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-1-1-3">Naive implementation<br/>
+   Just follow the formula
+   \(C_{ij} = \sum_k A_{ik}B_{kj}\)
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Compiling with different flags</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+<p>  Times in seconds
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /><col class="right" /><col class="right" /><col class="right" /><col class="right" /><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">FUNCTION</th><th scope="col" class="right">No flag</th><th scope="col" class="right">-O0</th><th scope="col" class="right">-O1</th><th scope="col" class="right">-O2</th><th scope="col" class="right">-O3</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">NAIVE</td><td class="right">7.50</td><td class="right">7.26</td><td class="right">0.820</td><td class="right">0.817</td><td class="right">0.827</td></tr>
+<tr><td class="left">BLAS</td><td class="right">0.00365</td><td class="right">0.00366</td><td class="right">0.00281</td><td class="right">0.00281</td><td class="right">0.00290</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> Compile adding -mavx</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+<p>  Times in seconds
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /><col class="left" /><col class="right" /><col class="right" /><col class="right" /><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">FUNCTION</th><th scope="col" class="left">No flag</th><th scope="col" class="right">-O0 -mavx</th><th scope="col" class="right">-O1 -mavx</th><th scope="col" class="right">-O2 -mavx</th><th scope="col" class="right">-O3 -mavx</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Naive</td><td class="left"></td><td class="right">7.26</td><td class="right">0.817</td><td class="right">0.819</td><td class="right">0.819</td></tr>
+<tr><td class="left">BLAS</td><td class="left"></td><td class="right">0.00380</td><td class="right">0.00290</td><td class="right">0.00279</td><td class="right">0.00287</td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> Answer to the question</h4>
+<div class="outline-text-4" id="text-1-1-4">
+
+<p>   The default optimization level for gcc is -O0.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Matrix transposition</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ul>
+<li>I have implemented the block on transposition!!!
+</li>
+<li>Results table
+     Matriz size = 4096
+     Repetitions = 50
+     Selecting minimum time
+
+
+
+<pre class="example">for ((a = 1; a &lt;= 4096; a = 2*a)); do
+    echo -n "| $a | " ; 
+    for level in 0 1 2 3; do 
+        gcc fast_transpose_template.c -O${level}; 
+        for reps in $(seq 1 50) ; do 
+            ./a.out $a; done | awk 'BEGIN {MIN = 10000}  {if ($1 &lt; MIN) MIN=$1 } END {printf "%s |", MIN}';  
+    done; 
+    echo ""; 
+done;
+</pre>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="right" /><col class="right" /><col class="right" /><col class="right" /><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="right">block size</th><th scope="col" class="right">time -O0</th><th scope="col" class="right">time -O1</th><th scope="col" class="right">time -O2</th><th scope="col" class="right">time -O3</th></tr>
+</thead>
+<tbody>
+<tr><td class="right">1</td><td class="right">0.555</td><td class="right">0.125</td><td class="right">0.0835</td><td class="right">0.234</td></tr>
+<tr><td class="right">2</td><td class="right">0.468</td><td class="right">0.0748</td><td class="right">0.0565</td><td class="right">0.181</td></tr>
+<tr><td class="right">4</td><td class="right">0.424</td><td class="right">0.0553</td><td class="right">0.0422</td><td class="right">0.0727</td></tr>
+<tr><td class="right">8</td><td class="right">0.399</td><td class="right">0.0526</td><td class="right">0.044</td><td class="right">0.0633</td></tr>
+<tr><td class="right">16</td><td class="right">0.395</td><td class="right">0.073</td><td class="right">0.0593</td><td class="right">0.0534</td></tr>
+<tr><td class="right">32</td><td class="right">0.397</td><td class="right">0.0713</td><td class="right">0.0593</td><td class="right">0.0532</td></tr>
+<tr><td class="right">64</td><td class="right">0.39</td><td class="right">0.0672</td><td class="right">0.0552</td><td class="right">0.0448</td></tr>
+<tr><td class="right">128</td><td class="right">0.39</td><td class="right">0.0771</td><td class="right">0.0735</td><td class="right">0.0626</td></tr>
+<tr><td class="right">256</td><td class="right">0.418</td><td class="right">0.144</td><td class="right">0.14</td><td class="right">0.13</td></tr>
+<tr><td class="right">512</td><td class="right">0.453</td><td class="right">0.182</td><td class="right">0.174</td><td class="right">0.164</td></tr>
+<tr><td class="right">1024</td><td class="right">0.76</td><td class="right">0.255</td><td class="right">0.259</td><td class="right">0.246</td></tr>
+<tr><td class="right">2048</td><td class="right">0.905</td><td class="right">0.302</td><td class="right">0.299</td><td class="right">0.289</td></tr>
+<tr><td class="right">4096</td><td class="right">1.04</td><td class="right">0.365</td><td class="right">0.364</td><td class="right">0.354</td></tr>
+</tbody>
+</table>
+
+
+<p>
+     And for matrix size = 8192
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="right" /><col class="right" /><col class="right" /><col class="right" /><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="right">block size</th><th scope="col" class="right">time -O0</th><th scope="col" class="right">time -O1</th><th scope="col" class="right">time -O2</th><th scope="col" class="right">time -O3</th></tr>
+</thead>
+<tbody>
+<tr><td class="right">1</td><td class="right">2.22</td><td class="right">0.5</td><td class="right">0.333</td><td class="right">0.935</td></tr>
+<tr><td class="right">2</td><td class="right">1.87</td><td class="right">0.301</td><td class="right">0.225</td><td class="right">0.727</td></tr>
+<tr><td class="right">4</td><td class="right">1.68</td><td class="right">0.232</td><td class="right">0.177</td><td class="right">0.291</td></tr>
+<tr><td class="right">8</td><td class="right">1.58</td><td class="right">0.236</td><td class="right">0.187</td><td class="right">0.258</td></tr>
+<tr><td class="right">16</td><td class="right">1.59</td><td class="right">0.296</td><td class="right">0.241</td><td class="right">0.215</td></tr>
+<tr><td class="right">32</td><td class="right">1.59</td><td class="right">0.289</td><td class="right">0.239</td><td class="right">0.213</td></tr>
+<tr><td class="right">64</td><td class="right">1.57</td><td class="right">0.271</td><td class="right">0.225</td><td class="right">0.189</td></tr>
+<tr><td class="right">128</td><td class="right">1.57</td><td class="right">0.315</td><td class="right">0.301</td><td class="right">0.26</td></tr>
+<tr><td class="right">256</td><td class="right">1.68</td><td class="right">0.581</td><td class="right">0.567</td><td class="right">0.532</td></tr>
+<tr><td class="right">512</td><td class="right">1.82</td><td class="right">0.72</td><td class="right">0.693</td><td class="right">0.664</td></tr>
+<tr><td class="right">1024</td><td class="right">2.41</td><td class="right">0.865</td><td class="right">0.917</td><td class="right">0.882</td></tr>
+<tr><td class="right">2048</td><td class="right">3.68</td><td class="right">1.22</td><td class="right">1.3</td><td class="right">1.24</td></tr>
+<tr><td class="right">4096</td><td class="right">4</td><td class="right">1.33</td><td class="right">1.36</td><td class="right">1.38</td></tr>
+<tr><td class="right">8192</td><td class="right">4.31</td><td class="right">1.64</td><td class="right">1.67</td><td class="right">1.63</td></tr>
+</tbody>
+</table>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> <span class="timestamp-wrapper"> <span class="timestamp">2016-10-04 Tue</span></span> Hands-on session</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Symbols</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<ul>
+<li>On the makefile, if you prepend a - before the command, that
+     means ignore any errors that command makes.
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> lang2lang</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+</div>
+
+<div id="outline-container-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 01-f-from-f</h4>
+<div class="outline-text-4" id="text-2-2-1">
+
+
+
+
+<pre class="example">gfortran f-sum.f90 -c
+gfortran f-sum.o f-main.f90 -o sum.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 02-c-from-c</h4>
+<div class="outline-text-4" id="text-2-2-2">
+
+
+
+
+<pre class="example">gcc -c c-sum.c
+gcc c-main.c c-sum.o -o sum.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 03-c-from-f77</h4>
+<div class="outline-text-4" id="text-2-2-3">
+
+
+
+
+<pre class="example">gcc -c c-sum.c 
+gfortran f-main.f90 c-sum.o -o sum-c-f.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-4" class="outline-4">
+<h4 id="sec-2-2-4"><span class="section-number-4">2.2.4</span> 04-f77-from-c</h4>
+<div class="outline-text-4" id="text-2-2-4">
+
+
+
+
+<pre class="example">gfortran -c f-sum.f90 
+gcc c-main.c f-sum.o -o sum-f-c.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-5" class="outline-4">
+<h4 id="sec-2-2-5"><span class="section-number-4">2.2.5</span> 05-cpp-from-cpp</h4>
+<div class="outline-text-4" id="text-2-2-5">
+
+
+
+
+<pre class="example">g++ -c cpp-sum.cpp
+g++ cpp-main.cpp cpp-sum.o -o sum-cpp-cpp.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-6" class="outline-4">
+<h4 id="sec-2-2-6"><span class="section-number-4">2.2.6</span> 06-c-from-cpp</h4>
+<div class="outline-text-4" id="text-2-2-6">
+
+
+
+
+<pre class="example">gcc -c c-sum.c
+g++ cpp-main.cpp c-sum.o -o sum-c-cpp.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-7" class="outline-4">
+<h4 id="sec-2-2-7"><span class="section-number-4">2.2.7</span> 07-c-from-f03</h4>
+<div class="outline-text-4" id="text-2-2-7">
+
+
+
+
+<pre class="example">gcc -c c-sum.c
+gfortran f-main.f90 c-sum.o -o sum-c-f03.x
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2-8" class="outline-4">
+<h4 id="sec-2-2-8"><span class="section-number-4">2.2.8</span> 08-f03-from-c</h4>
+<div class="outline-text-4" id="text-2-2-8">
+
+
+
+
+<pre class="example">gfortran -c f-sum.f90
+gcc c-main.c f-sum.o -o sum-f03-c.x
+</pre>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> ext libs</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<ul>
+<li>We are going to use fftw.
+</li>
+<li>I have installed it on <code>/scratch/local</code> . 
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2016-10-04T17:14+0200</p>
+<p class="author">Author: woquendo</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

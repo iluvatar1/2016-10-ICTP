@@ -1,0 +1,9 @@
+5              number of frequencies
+1.0 1.0 0.0    frequency, intensity, phase
+0.5 0.5 0.5    frequency, intensity, phase
+0.5 1.0 0.25   frequency, intensity, phase
+2.0 0.5 -0.5   frequency, intensity, phase
+4.0 0.25 0.0   frequency, intensity, phase
+2              total time
+100            number of intervals
+5freq.dat

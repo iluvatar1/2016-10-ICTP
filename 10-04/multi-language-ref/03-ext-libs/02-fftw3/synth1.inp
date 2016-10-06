@@ -1,0 +1,5 @@
+1              number of frequencies
+1 1 0          frequency, intensity, phase
+2              total time
+100            number of intervals
+sine.dat
