@@ -266,5 +266,13 @@
     *Description:* P0 sends 10 to p1, and 01 receives 10, sum 10, and
     sends 20 back to p0.
 *** Extend point 1 and make the code flexible to impement a ring of communication
-    At time t, each process sends its own ID to the left process.
+    - At time t1, each process sends its own ID to the left process,
+      and receives an ID from the previous process. At each step the
+      received number is added to a local quantity (initialized with
+      the process ID).
+    - At time t2, all process send into the ring the value received
+      at time t1. 
+    - After n-1 communications all process have the same local
+      quantity equal to the sum of all the idS involved in the
+      program.
 
