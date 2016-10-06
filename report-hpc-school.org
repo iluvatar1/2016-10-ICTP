@@ -258,14 +258,51 @@
 * [2016-10-06 Thu] Hands on session
 ** Hands on mpi session 1
    - Search on google for mpi forum: [[http://mpi-forum.org/]]
-*** Hello world
+*** DONE Hello world
     We create a hello world program
     - Compilation :: Use mpicc
     - Execution :: Use mpirun -np X execname
-*** point2point communication
+*** DONE point2point communication
     *Description:* P0 sends 10 to p1, and 01 receives 10, sum 10, and
     sends 20 back to p0.
-*** Extend point 1 and make the code flexible to impement a ring of communication
+    *Solution*
+    #+BEGIN_SRC C
+      #include <stdlib.h>
+      #include <stdio.h>
+      
+      #include <mpi.h>
+      
+      int main(int argc, char **argv)
+      {
+        MPI_Init( &argc, &argv );
+        
+        int my_rank = 0, size = 0;
+        MPI_Status status;
+        
+        MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        
+        int val = 10; 
+        if (0 == my_rank) {
+          val = 10;
+          MPI_Send(&val, 1, MPI_INT, 1, 99, MPI_COMM_WORLD); 
+          MPI_Recv(&val, 1, MPI_INT, 1, 98, MPI_COMM_WORLD, &status);     
+        } else if (1 == my_rank) {
+          MPI_Recv(&val, 1, MPI_INT, 0, 99, MPI_COMM_WORLD, &status);
+          val += 10;
+          MPI_Send(&val, 1, MPI_INT, 0, 98, MPI_COMM_WORLD);     
+        }
+        
+        if (0 == my_rank) {
+          printf("Val =  %d , at rank == 0\n", val);
+        }
+        
+        MPI_Finalize();
+        
+        return 0;
+      }
+    #+END_SRC
+*** TODO Extend point 1 and make the code flexible to impement a ring of communication
     - At time t1, each process sends its own ID to the left process,
       and receives an ID from the previous process. At each step the
       received number is added to a local quantity (initialized with
