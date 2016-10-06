@@ -1,0 +1,261 @@
+* URL
+  - Main :: [[http://indico.ictp.it/event/7659]]
+  - Programme :: [[http://indico.ictp.it/event/7659/other-view?view%3Dictptimetable][http://indico.ictp.it/event/7659/other-view?view=ictptimetable]] 
+* [2016-10-03 Mon] Hands-on session : Hardware performance through matrix computations
+** Matrix multiplications
+*** Implement the missing parts
+**** Dynamic memory allocation  
+   - I am going to use malloc.
+   - I needed to compile with the ~-lblas~ at the end.
+   - The line was like 
+     #+BEGIN_SRC C
+     A = (double *) malloc(SIZE*SIZE*sizeof(double)); 
+     if (NULL == A) printf("ERROR getting memory for matrix A \n");
+     #+END_SRC
+**** Initialization with random values
+   - Using the drand48 function
+   - I wrote three helper functions allowing me to 
+     compute the indexes i and j from a given linear 
+     index and viceversa.
+   - I am using srand48 to ensure reproducibility.
+**** Naive implementation
+   Just follow the formula
+   $C_{ij} = \sum_k A_{ik}B_{kj}$
+   
+*** Compiling with different flags
+  Times in seconds
+  |----------+---------+---------+---------+---------+---------|
+  | FUNCTION | No flag |     -O0 |     -O1 |     -O2 |     -O3 |
+  |----------+---------+---------+---------+---------+---------|
+  | NAIVE    |    7.50 |    7.26 |   0.820 |   0.817 |   0.827 |
+  | BLAS     | 0.00365 | 0.00366 | 0.00281 | 0.00281 | 0.00290 |
+  |----------+---------+---------+---------+---------+---------|
+*** Compile adding -mavx
+  Times in seconds
+  |----------+---------+-----------+-----------+-----------+-----------|
+  | FUNCTION | No flag | -O0 -mavx | -O1 -mavx | -O2 -mavx | -O3 -mavx |
+  |----------+---------+-----------+-----------+-----------+-----------|
+  | Naive    |         |      7.26 |     0.817 |     0.819 |     0.819 |
+  | BLAS     |         |   0.00380 |   0.00290 |   0.00279 |   0.00287 |
+  |----------+---------+-----------+-----------+-----------+-----------|
+  
+*** Answer to the question 
+   The default optimization level for gcc is -O0.
+
+** Matrix transposition
+   - I have implemented the block on transposition!!!
+   - Results table
+     Matriz size = 4096
+     Repetitions = 50
+     Selecting minimum time
+     #+BEGIN_SRC sh
+       for ((a = 1; a <= 4096; a = 2*a)); do
+           echo -n "| $a | " ; 
+           for level in 0 1 2 3; do 
+               gcc fast_transpose_template.c -O${level}; 
+               for reps in $(seq 1 50) ; do 
+                   ./a.out $a; done | awk 'BEGIN {MIN = 10000}  {if ($1 < MIN) MIN=$1 } END {printf "%s |", MIN}';  
+           done; 
+           echo ""; 
+       done;
+     #+END_SRC
+
+     #+CAPTION: Cpu time, in seconds, as a function of block size, for several compiler flags and matrix of size 4096
+     |------------+----------+----------+----------+----------|
+     | block size | time -O0 | time -O1 | time -O2 | time -O3 |
+     |------------+----------+----------+----------+----------|
+     |          1 |    0.555 |    0.125 |   0.0835 |    0.234 |
+     |          2 |    0.468 |   0.0748 |   0.0565 |    0.181 |
+     |          4 |    0.424 |   0.0553 |   0.0422 |   0.0727 |
+     |          8 |    0.399 |   0.0526 |    0.044 |   0.0633 |
+     |         16 |    0.395 |    0.073 |   0.0593 |   0.0534 |
+     |         32 |    0.397 |   0.0713 |   0.0593 |   0.0532 |
+     |         64 |     0.39 |   0.0672 |   0.0552 |   0.0448 |
+     |        128 |     0.39 |   0.0771 |   0.0735 |   0.0626 |
+     |        256 |    0.418 |    0.144 |     0.14 |     0.13 |
+     |        512 |    0.453 |    0.182 |    0.174 |    0.164 |
+     |       1024 |     0.76 |    0.255 |    0.259 |    0.246 |
+     |       2048 |    0.905 |    0.302 |    0.299 |    0.289 |
+     |       4096 |     1.04 |    0.365 |    0.364 |    0.354 |
+     |------------+----------+----------+----------+----------|
+     #+CAPTION: The figure corresponding to the previous table
+     [[./10-03/4092.png]]
+
+     And for matrix size = 8192
+     #+CAPTION: Cpu time, in seconds, as a function of block size, for several compiler flags and matrix of size 8192
+     |------------+----------+----------+----------+----------|
+     | block size | time -O0 | time -O1 | time -O2 | time -O3 |
+     |------------+----------+----------+----------+----------|
+     |          1 |     2.22 |      0.5 |    0.333 |    0.935 |
+     |          2 |     1.87 |    0.301 |    0.225 |    0.727 |
+     |          4 |     1.68 |    0.232 |    0.177 |    0.291 |
+     |          8 |     1.58 |    0.236 |    0.187 |    0.258 |
+     |         16 |     1.59 |    0.296 |    0.241 |    0.215 |
+     |         32 |     1.59 |    0.289 |    0.239 |    0.213 |
+     |         64 |     1.57 |    0.271 |    0.225 |    0.189 |
+     |        128 |     1.57 |    0.315 |    0.301 |     0.26 |
+     |        256 |     1.68 |    0.581 |    0.567 |    0.532 |
+     |        512 |     1.82 |     0.72 |    0.693 |    0.664 |
+     |       1024 |     2.41 |    0.865 |    0.917 |    0.882 |
+     |       2048 |     3.68 |     1.22 |      1.3 |     1.24 |
+     |       4096 |        4 |     1.33 |     1.36 |     1.38 |
+     |       8192 |     4.31 |     1.64 |     1.67 |     1.63 |
+     |------------+----------+----------+----------+----------|
+     #+CAPTION: The figure corresponding to the previous table
+     [[./10-03/8192.png]]
+     
+* [2016-10-04 Tue] Morning Sessions
+** Compiling, libraries, scripting, etc
+*** TODO check the following numerical libraries
+    - PLASMA : http://icl.cs.utk.edu/projectsfiles/plasma/html/README.html
+    - OPENBLAS : http://www.openblas.net/
+** Mixing programming languages
+
+* [2016-10-04 Tue] Hands-on session
+** Symbols
+   - On the makefile, if you prepend a - before the command, that
+     means ignore any errors that command makes.
+** lang2lang
+*** 01-f-from-f
+    #+BEGIN_SRC sh
+    gfortran f-sum.f90 -c
+    gfortran f-sum.o f-main.f90 -o sum.x
+    #+END_SRC
+*** 02-c-from-c
+    #+BEGIN_SRC sh
+    gcc -c c-sum.c
+    gcc c-main.c c-sum.o -o sum.x
+    #+END_SRC
+*** 03-c-from-f77
+    #+BEGIN_SRC sh
+    gcc -c c-sum.c 
+    gfortran f-main.f90 c-sum.o -o sum-c-f.x
+    #+END_SRC
+*** 04-f77-from-c
+    #+BEGIN_SRC sh
+    gfortran -c f-sum.f90 
+    gcc c-main.c f-sum.o -o sum-f-c.x
+    #+END_SRC
+*** 05-cpp-from-cpp
+    #+BEGIN_SRC sh
+      g++ -c cpp-sum.cpp
+      g++ cpp-main.cpp cpp-sum.o -o sum-cpp-cpp.x
+    #+END_SRC
+*** 06-c-from-cpp
+    #+BEGIN_SRC sh
+    gcc -c c-sum.c
+    g++ cpp-main.cpp c-sum.o -o sum-c-cpp.x
+    #+END_SRC
+*** 07-c-from-f03
+    #+BEGIN_SRC sh
+    gcc -c c-sum.c
+    gfortran f-main.f90 c-sum.o -o sum-c-f03.x
+    #+END_SRC
+*** 08-f03-from-c
+    #+BEGIN_SRC sh
+    gfortran -c f-sum.f90
+    gcc c-main.c f-sum.o -o sum-f03-c.x
+    #+END_SRC
+** ext libs
+   - We are going to use fftw.
+   - I have installed it on ~/scratch/local~ . 
+* [2016-10-05 Wed] Morning Sessions
+** Shared memory parallelism : Ivan Girotto
+   - Communication :: One process has to write a data that other
+                      process needs.
+   - Synchronization :: time a process needs to wait for other
+                        processes to finish their tasks.
+   - We have *shared* and *distributed* memory. 
+   - Process :: It has its own address space (which includes its own
+                instructions, data, files, registers, and stack). For
+                n processes, there are n address spaces. Each process
+                can spawn its own threads, which share the same
+                instruction, data and files, but each thread has its
+                own registers and stack.
+   - Thread :: Lightweight sub-process which has its own private
+               memory.
+   - *IMPORTANT* : Always think about the difference between global
+     and local thread memeory.
+* [2016-10-05 Wed] Hands on session
+** Open Mp programming session 1
+*** DONE Implement a hello world 
+      #+BEGIN_SRC C
+        #include <stdio.h>
+        #include <omp.h>
+        
+        int main(void)
+        {
+          printf("Starting off in the sequential world\n");
+          
+          //omp_set_num_threads(3);
+        #pragma omp parallel
+          {
+            printf("Hello from thread number %d\n", omp_get_thread_num());
+          }
+          
+          printf("Back to the sequential world\n");
+          
+          return 0;
+        }
+      #+END_SRC
+*** DONE Implement open mp for the matmul and compare with dgemm.
+    |-----------+-----------+------------+-----------|
+    | N_THREADS | -O3 naive | -O3 openmp | -O3 dgemm |
+    |-----------+-----------+------------+-----------|
+    |         1 |      3.47 |       6.61 |      1.33 |
+    |         2 |      3.48 |       3.42 |      1.31 |
+    |         4 |      3.48 |       1.78 |      1.28 |
+    |         8 |      3.41 |       1.79 |      1.22 |
+    |       16* |      3.44 |       1.84 |      1.34 |
+    |       32* |      3.49 |       1.80 |      1.23 |
+    |-----------+-----------+------------+-----------|
+*** DONE Implement fast transpose with open mp
+    *NOTE* : I had to fix a huge mistake in the fast transpose that
+    everybody was using
+    |--------------------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+    | Blocksize/NThreads |     1 |      2 |      4 |      8 |     16 |     32 |     64 |    128 |    256 |    512 |   1024 |
+    |--------------------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+    |                  1 | 0.276 |  0.178 |  0.149 |  0.121 |  0.163 |   0.17 |  0.186 |  0.198 |  0.199 |  0.201 |  0.199 |
+    |                  2 | 0.181 |  0.112 |  0.088 | 0.0779 | 0.0827 | 0.0881 | 0.0962 |  0.103 |  0.102 |  0.102 |  0.105 |
+    |                  4 | 0.182 |  0.111 | 0.0737 | 0.0634 | 0.0666 | 0.0529 | 0.0555 |  0.059 | 0.0589 | 0.0603 | 0.0643 |
+    |                  8 | 0.163 | 0.0981 | 0.0792 | 0.0639 | 0.0563 | 0.0495 | 0.0483 | 0.0477 | 0.0556 |  0.054 | 0.0862 |
+    |                 16 | 0.163 | 0.0988 | 0.0784 | 0.0653 | 0.0586 | 0.0485 | 0.0475 | 0.0499 | 0.0515 | 0.0543 | 0.0863 |
+    |                 32 | 0.158 | 0.0987 | 0.0787 | 0.0648 |  0.057 |  0.049 | 0.0473 | 0.0504 | 0.0581 | 0.0573 | 0.0925 |
+    |--------------------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+
+*** DONE Make scaling curves and speedup for 1, 2, 4, 8 threads for the previous ones
+    Export the data to a txt file and plot it with the following
+    gnuplot command : 
+    #+BEGIN_SRC gnuplot
+    f(x) = 2**i
+    set xlabel 'n threads'; set ylabel 'cpu time'
+    plot for [i=2:12] 'data.txt' u 1:i t 'bs = '.f(i) w lp
+    set term png; set out 'cputime-versus-nthreads.png'; replot; set term 'wxt'; set out 'null.pdf' 
+    #+END_SRC
+    [[./10-05/openmp/cputime-versus-nthreads.png]]
+
+    *Conclusion*: 4 cores is better for this computer. Larger ones are not. 
+**** Speedup curve
+     |  1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |
+     |  2 | 1.5248618785 | 1.5892857143 | 1.6931818182 | 1.5532734275 | 1.9709794438 | 1.9296254257 | 1.9334719335 | 1.9223300971 | 1.9509803922 | 1.9705882353 | 1.8952380952 |
+     |  4 | 1.5164835165 | 1.6036036036 | 2.0217096336 | 1.9085173502 | 2.4474474474 |  3.213610586 | 3.3513513514 | 3.3559322034 | 3.3786078098 | 3.3333333333 | 3.0948678072 |
+     |  8 | 1.6932515337 | 1.8144750255 | 1.8813131313 | 1.8935837246 | 2.8952042629 | 3.4343434343 |  3.850931677 | 4.1509433962 | 3.5791366906 | 3.7222222222 | 2.3085846868 |
+     | 16 | 1.6932515337 | 1.8016194332 | 1.9005102041 | 1.8529862175 | 2.7815699659 | 3.5051546392 | 3.9157894737 | 3.9679358717 | 3.8640776699 | 3.7016574586 | 2.3059096176 |
+     | 32 |  1.746835443 | 1.8034447822 | 1.8932655654 | 1.8672839506 | 2.8596491228 | 3.4693877551 |  3.932346723 | 3.9285714286 | 3.4251290878 | 3.5078534031 | 2.1513513514 |
+    [[./10-05/openmp/speedup-versus-nthreads.png]]
+
+**** Efficiency curve
+     |  1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |            1 |
+     |  2 | 0.7624309392 | 0.7946428571 | 0.8465909091 | 0.7766367137 | 0.9854897219 | 0.9648127128 | 0.9667359667 | 0.9611650485 | 0.9754901961 | 0.9852941176 | 0.9476190476 |
+     |  4 | 0.3791208791 | 0.4009009009 | 0.5054274084 | 0.4771293375 | 0.6118618619 | 0.8034026465 | 0.8378378378 | 0.8389830508 | 0.8446519525 | 0.8333333333 | 0.7737169518 |
+     |  8 | 0.2116564417 | 0.2268093782 | 0.2351641414 | 0.2366979656 | 0.3619005329 | 0.4292929293 | 0.4813664596 | 0.5188679245 | 0.4473920863 | 0.4652777778 | 0.2885730858 |
+     | 16 | 0.1058282209 | 0.1126012146 | 0.1187818878 | 0.1158116386 | 0.1738481229 | 0.2190721649 | 0.2447368421 |  0.247995992 | 0.2415048544 | 0.2313535912 | 0.1441193511 |
+     | 32 | 0.0545886076 | 0.0563576494 | 0.0591645489 | 0.0583526235 | 0.0893640351 | 0.1084183673 | 0.1228858351 | 0.1227678571 |  0.107035284 | 0.1096204188 | 0.0672297297 |
+    [[./10-05/openmp/efficiency-versus-nthreads.png]]
+     
+
+*** TODO Compute the memory bandwidth obtained with the transpose.
+* [2016-10-06 Thu] Hands on session
+** Hands on mpi session 1
+   - Search on google for mpi forum: [[http://mpi-forum.org/]]
+     
