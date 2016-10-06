@@ -302,7 +302,8 @@
         return 0;
       }
     #+END_SRC
-*** TODO Extend point 1 and make the code flexible to impement a ring of communication
+*** DONE Extend point 1 and make the code flexible to impement a ring of communication
+    - Check better definition at [[https://www.nics.tennessee.edu/mpi-tutorial#ringbl]]
     - At time t1, each process sends its own ID to the left process,
       and receives an ID from the previous process. At each step the
       received number is added to a local quantity (initialized with
