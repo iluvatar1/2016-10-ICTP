@@ -323,4 +323,4 @@
         reduce comms, distributed is better but not always
         feasible. Replicated limits the size of the problem a given
         node can solve.
-	
+** Parallel profiler : Tau, [[http://www.cs.uoregon.edu/research/tau/home.php]] 	
