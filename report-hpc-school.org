@@ -176,7 +176,7 @@
                memory.
    - *IMPORTANT* : Always think about the difference between global
      and local thread memeory.
-* [2016-10-05 Wed] Hands on session
+* [2016-10-05 Wed] Hands-on session
 ** Open Mp programming session 1
 *** DONE Implement a hello world 
       #+BEGIN_SRC C
@@ -255,7 +255,7 @@
      
 
 *** TODO Compute the memory bandwidth obtained with the transpose.
-* [2016-10-06 Thu] Hands on session
+* [2016-10-06 Thu] Hands-on session
 ** Hands on mpi session 1
    - Search on google for mpi forum: [[http://mpi-forum.org/]]
 *** DONE Hello world
@@ -324,3 +324,11 @@
         feasible. Replicated limits the size of the problem a given
         node can solve.
 	
+* [2016-10-07 Fri] Hands-on session
+** Matrix distribution
+   1. Initialization and distribution arbitrary large square identity
+      matrix, distributed across the processes.
+   2. The matrix must be printed by process 0. 
+   3. Consider the case where the matrix size is not a multiple of 
+      the number of processors. 
+      
