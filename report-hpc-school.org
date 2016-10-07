@@ -326,9 +326,11 @@
 	
 * [2016-10-07 Fri] Hands-on session
 ** Matrix distribution
-   1. Initialization and distribution arbitrary large square identity
-      matrix, distributed across the processes.
-   2. The matrix must be printed by process 0. 
-   3. Consider the case where the matrix size is not a multiple of 
-      the number of processors. 
+*** DONE Serial version for printing binary matrix.
+*** DONE Initialization and distribution
+    arbitrary large square identity matrix, distributed across the
+    processes.
+*** TODO The matrix must be printed by process 0.
+    Send matrix to process 0 and print
+*** TODO Matrix size is not a multiple of the number of processors. 
       
