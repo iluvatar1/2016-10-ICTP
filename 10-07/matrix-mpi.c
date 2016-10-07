@@ -3,7 +3,7 @@
 #include <math.h>
 #include <mpi.h>
 
-#define SIZE 16
+//#define SIZE 8192
 
 void initialize(double * M, int sizea, int sizeb, int rank);
 void print(double * M, int sizea, int sizeb, int rank, FILE * fp);
@@ -11,6 +11,13 @@ void check(int size);
 
 int main(int argc, char **argv)
 {
+  int SIZE = -1;
+  if (argc != 2) {
+    printf("ERROR.\nProgram must be called as ./program matrix_col_length \n");
+    exit(1);
+  }
+  SIZE = atoi(argv[1]);
+
   MPI_Init(&argc, &argv);
 
   int my_rank = 0, np = 0;
@@ -35,22 +42,20 @@ int main(int argc, char **argv)
     fp = fopen("matrix-parallel.out", "w+b"); 
     // print my data
     print(A, size_x, size_y , my_rank, fp);
-  }
-  // receive from others and print at the correct position
-  int src;
-  int des = 0;
-  for (src = 1; src < np; ++src) {
-    MPI_Send(A, size_x*size_y, MPI_DOUBLE, des, 99, MPI_COMM_WORLD);
-    if (0 == my_rank) {
+    // receive from others and print at the correct position
+    int src;
+    for (src = 1; src < np; ++src) {
       MPI_Recv(A, size_x*size_y, MPI_DOUBLE, src, 99, MPI_COMM_WORLD, &status);
       print(A, size_x, size_y , src, fp);
     }
-  }
-  if (0 == my_rank) {
     // close file stream
     fclose(fp);
     // checking
     //check(SIZE);
+  }
+  else {
+    int des = 0;
+    MPI_Send(A, size_x*size_y, MPI_DOUBLE, des, 99, MPI_COMM_WORLD);
   }
 
   MPI_Finalize();
@@ -113,7 +118,7 @@ void check(int size)
       #ifdef DEBUG
       printf("%.3lf  ", M[ii*size + jj]);
       #endif
-      sum += abs(M[ii*size + jj] - ((ii == jj) ? 1.0 : 0.0) ); 
+      sum += fabs(M[ii*size + jj] - ((ii == jj) ? 1.0 : 0.0) ); 
     }
     #ifdef DEBUG
     printf("\n");
