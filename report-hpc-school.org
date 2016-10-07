@@ -314,3 +314,13 @@
       quantity equal to the sum of all the idS involved in the
       program.
 
+* [2016-10-07 Fri] Morning session
+** Parallelization techniques - Ivan Girotto
+   - Always think about the best way to parallelize.
+   - Static Data Partitioning :: For example, for dense matrices,
+        partition in 1D slices (row-wise, column-wise) is the best. 
+   - Distributed Data Versus Replicated Data :: replicated helps to
+        reduce comms, distributed is better but not always
+        feasible. Replicated limits the size of the problem a given
+        node can solve.
+	
